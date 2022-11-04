@@ -12,7 +12,7 @@
 			<tr><td>아이디</td><td><input type="text" name="joinId"></td></tr>
 			<tr><td>비밀번호</td><td><input type="password" name="joinPw"></td></tr>
 			<tr><td>이름</td><td><input type="text" name="joinName"></td></tr>
-			<tr><td>성별</td><td><input type="text" name="joinGender"></td></tr>
+			<tr><td>성별</td><td><input type="radio" name="joinGender" value="남자">남자<input type="radio" name="joinGender" value="여자">여자</td></tr>
 			<tr><td>이메일</td><td><input type="text" name="joinEmail"></td></tr>
 			<tr><td colspan="2"><input type="submit" value="회원가입"></td></tr>
 		</table>
