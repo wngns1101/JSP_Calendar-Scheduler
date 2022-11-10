@@ -34,6 +34,8 @@ public class calDAO {
 			
 			while(rs.next()) {
 				str.add(rs.getString("calId"));
+				str.add(rs.getString("calName"));
+				str.add(rs.getString("calTitle"));
 				str.add(rs.getString("calStartDate"));
 				str.add(rs.getString("calEndDate"));
 				str.add(rs.getString("calText"));
@@ -45,6 +47,59 @@ public class calDAO {
 			conn.close();
 		}
 		return str;
+	}
+	
+	public int calInsert(calDTO cal) throws SQLException {
+		String sql = "insert into calendar values(?, ?, ?, ?, ?, ?)";
+		pstmt = conn.prepareStatement(sql);
+		try {
+			pstmt.setString(1, cal.getCalId());
+			pstmt.setString(2, cal.getCalName());
+			pstmt.setString(3, cal.getCalTitle());
+			pstmt.setString(4, cal.getCalStartDate());
+			pstmt.setString(5, cal.getCalEndDate());
+			pstmt.setString(6, cal.getCalText());
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			conn.close();
+		}
+		return -1;
+	}
+	
+	public int calDelete(String id, String title) throws SQLException {
+		String sql = "delete from calendar where calId = ? and calTitle = ? ";
+		pstmt = conn.prepareStatement(sql);
+		try {
+			pstmt.setString(1, id);
+			pstmt.setString(2, title);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			conn.close();
+		}
+		return -1;
+	}
+	
+	public int calUpdate(calDTO cal) throws SQLException {
+		String sql = "update calendar set calName = ?, calTitle = ?, calStartDate = ?, calEndDate = ?, calText = ? where calId = ?";
+		pstmt = conn.prepareStatement(sql);
+		try {
+			pstmt.setString(1, cal.getCalName());
+			pstmt.setString(2, cal.getCalTitle());
+			pstmt.setString(3, cal.getCalStartDate());
+			pstmt.setString(4, cal.getCalEndDate());
+			pstmt.setString(5, cal.getCalText());
+			pstmt.setString(6, cal.getCalId());
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			conn.close();
+		}
+		return -1;
 	}
 	
 }

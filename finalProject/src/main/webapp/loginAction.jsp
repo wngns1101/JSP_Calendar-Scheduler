@@ -18,6 +18,7 @@
 		if(result == 1){
 			out.println("<script>");
 			out.println("alert('로그인에 성공했습니나.')");
+			session.setAttribute("userInfoId", id);
 			out.println("location.href='index.jsp'");
 			out.println("</script>");
 		}else if(result == 0){

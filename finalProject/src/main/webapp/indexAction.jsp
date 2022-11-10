@@ -29,20 +29,42 @@
 			<th> <input type="submit" value="확인"/></th>
 		</tr>
 		<tr>
+			<td><%=date %> 일정입니다.</td>
+		</tr>
+		<tr>
 			
 			<%
 				ArrayList<String> list1 = new ArrayList<String>(dao.calDate(date));
-				int size = list1.getSize();
-				for(int i=0; i<size; i++){
+				int size = 0;
+				for(int i=0; i<list1.size(); i++){
+				if(size == 6){
+			%>
+			</tr>
+			<tr>
+			<%
+				size = 0;
+				}
 			%>
 			<td>
 			
-				<%list1[i]%>
-			
+				<%=list1.get(i)%>
+				
 			</td>
 			<%
+				size++;
 				}
 			%>
+		</tr>
+		<tr>
+			<td>
+				<button type="button" onclick="location.href='insert.jsp'">추가</button>
+			</td>
+			<td>
+				<button type="button" onclick="location.href='update.jsp'">수정</button>
+			</td>
+			<td>
+				<button type="button" onclick="location.href='delete.jsp'">삭제</button>
+			</td>
 		</tr>
 		</table>
 	</form>
