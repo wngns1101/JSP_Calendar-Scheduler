@@ -4,15 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <title>Insert title here</title>
 </head>
-<body>
+<body class="container">
+    <div class="jumbotron">
+        <h1>로그인</h1>
+        <p>로그인 화면입니다.</p>
+    </div>
+    
 	<form action="loginAction.jsp" method="post">
-		<table border="1">
-			<tr><td>아이디</td><td><input type="text" name="loginId"></td></tr>
-			<tr><td>비밀번호</td><td><input type="password" name="loginPw"></td></tr>
-			<tr><td colspan="2"><input type="submit" value="로그인"><button type="button" onclick="location.href='join.jsp'">회원가입</button></td></tr>
-		</table>
+		 <div class="form-group">
+			<label>아이디</label><br>
+			<input type="text" name="loginId">
+		</div>
+		<div class="form-group">
+			<label>비밀번호</label><br>
+			<input type="password" name="loginPw">
+		</div>
+		<input type="submit" value="로그인" class="btn btn-primary"> <button type="button" onclick="location.href='join.jsp'" class="btn btn-primary">회원가입</button>
 	</form>
 </body>
 </html>      

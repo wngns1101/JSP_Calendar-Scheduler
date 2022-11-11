@@ -4,14 +4,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <title>Insert title here</title>
 </head>
-<body>
-<form action="deleteAction.jsp">
-		<table border="1">
-			<tr><td>삭제할 제목</td><td><input type="text" name="calTitle"></td></tr>
-			<tr><td colspan="2"><input type="submit" value="삭제"></td></tr>
-		</table>
+<body class="container">
+    <div class="jumbotron">
+        <h1>삭제</h1>
+        <p>삭제 화면입니다.</p>
+    </div>
+	<form action="deleteAction.jsp">
+			<label>삭제할 제목 </label><br>
+			<input type="text" name="calTitle">
+			<input type="submit" value="삭제" class="btn btn-primary">
 	</form>
 </body>
 </html>

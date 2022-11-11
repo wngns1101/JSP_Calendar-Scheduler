@@ -25,6 +25,11 @@
 				out.println("alert('삭제에 실패했습니다.')");
 				out.println("history.back()");
 				out.println("</script>");
+			}else if(result == 0){
+				out.println("<script>");
+				out.println("alert('삭제할 일정이 없습니다.')");
+				out.println("location.href='index.jsp'");
+				out.println("</script>");
 			}else{
 				out.println("<script>");
 				out.println("alert('삭제에 성공했습니다.')");

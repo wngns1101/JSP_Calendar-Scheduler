@@ -7,30 +7,36 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <title>Insert title here</title>
 </head>
-<body>
+<jsp:include page="header.jsp"/>
+
+<body class="container">
+    <div class="jumbotron">
+        <h1>메인페이지</h1>
+        <p><%=info.calDate(0) %> 일정입니다.</p>
+    </div>
+    
 <%!
 	calInfo info = new calInfo();	
 	calDAO indexDao = new calDAO();
 %>
-	<jsp:include page="header.jsp"/>
+	
 	
 	<form action="indexAction.jsp">
-		<table border="1">
+		<table class="table table-striped">
 			<tr>
-			<th> <input type="radio" name="date" value="<%=info.calDate(0)%>"><%=info.calDate(0)%></th>
-			<th> <input type="radio" name="date" value="<%=info.calDate(1)%>"><%=info.calDate(1)%></th>
-			<th> <input type="radio" name="date" value="<%=info.calDate(2)%>"><%=info.calDate(2)%></th>
-			<th> <input type="radio" name="date" value="<%=info.calDate(3)%>"><%=info.calDate(3)%></th>
-			<th> <input type="radio" name="date" value="<%=info.calDate(4)%>"><%=info.calDate(4)%></th>
-			<th> <input type="radio" name="date" value="<%=info.calDate(5)%>"><%=info.calDate(5)%></th>
-			<th> <input type="radio" name="date" value="<%=info.calDate(6)%>"><%=info.calDate(6)%></th>
-			<th> <input type="submit" value="확인"/></th>
+			<td> <input type="radio" name="date" value="<%=info.calDate(0)%>"><%=info.calDate(0)%></td>
+			<td> <input type="radio" name="date" value="<%=info.calDate(1)%>"><%=info.calDate(1)%></td>
+			<td> <input type="radio" name="date" value="<%=info.calDate(2)%>"><%=info.calDate(2)%></td>
+			<td> <input type="radio" name="date" value="<%=info.calDate(3)%>"><%=info.calDate(3)%></td>
+			<td> <input type="radio" name="date" value="<%=info.calDate(4)%>"><%=info.calDate(4)%></td>
+			<td> <input type="radio" name="date" value="<%=info.calDate(5)%>"><%=info.calDate(5)%></td>
+			<td> <input type="radio" name="date" value="<%=info.calDate(6)%>"><%=info.calDate(6)%></td>			
+			<td> <input type="submit" value="확인" class="btn btn-primary"/></td>
 		</tr>
-		<tr>
-			<td><%=info.calDate(0) %> 일정입니다.</td>
-		</tr>
+		
 		<tr>
 			
 			<%
@@ -55,18 +61,10 @@
 				}
 			%>
 		</tr>
-		<tr>
-			<td>
-				<button type="button" onclick="location.href='insert.jsp'">추가</button>
-			</td>
-			<td>
-				<button type="button" onclick="location.href='update.jsp'">수정</button>
-			</td>
-			<td>
-				<button type="button" onclick="location.href='delete.jsp'">삭제</button>
-			</td>
-		</tr>
 		</table>
+			<button type="button" onclick="location.href='insert.jsp'" class="btn btn-primary">추가</button>
+			<button type="button" onclick="location.href='update.jsp'" class="btn btn-primary">수정</button>
+			<button type="button" onclick="location.href='delete.jsp'" class="btn btn-primary">삭제</button>
 	</form>
 	<jsp:include page="footer.jsp"/>
 </body>

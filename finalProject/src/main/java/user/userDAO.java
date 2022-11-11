@@ -40,11 +40,10 @@ public class userDAO {
 		return -2;
 	}
 	
-	public int join(userDTO user) {
+	public int join(userDTO user) throws SQLException {
 		String sql = "insert into user values(?,?,?,?,?)";
-		
+		pstmt = conn.prepareStatement(sql);
 		try {
-			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getId());
 			pstmt.setString(2, user.getPassword());
 			pstmt.setString(3, user.getName());

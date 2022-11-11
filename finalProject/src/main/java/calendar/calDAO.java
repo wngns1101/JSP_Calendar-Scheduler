@@ -84,15 +84,15 @@ public class calDAO {
 	}
 	
 	public int calUpdate(calDTO cal) throws SQLException {
-		String sql = "update calendar set calName = ?, calTitle = ?, calStartDate = ?, calEndDate = ?, calText = ? where calId = ?";
+		String sql = "update calendar set calName = ?, calStartDate = ?, calEndDate = ?, calText = ? where calId = ? and calTitle = ?";
 		pstmt = conn.prepareStatement(sql);
 		try {
 			pstmt.setString(1, cal.getCalName());
-			pstmt.setString(2, cal.getCalTitle());
-			pstmt.setString(3, cal.getCalStartDate());
-			pstmt.setString(4, cal.getCalEndDate());
-			pstmt.setString(5, cal.getCalText());
-			pstmt.setString(6, cal.getCalId());
+			pstmt.setString(2, cal.getCalStartDate());
+			pstmt.setString(3, cal.getCalEndDate());
+			pstmt.setString(4, cal.getCalText());
+			pstmt.setString(5, cal.getCalId());
+			pstmt.setString(6, cal.getCalTitle());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
