@@ -43,7 +43,6 @@ public class calDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			rs.close();
 			conn.close();
 		}
 		return str;

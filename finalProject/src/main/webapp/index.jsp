@@ -2,7 +2,12 @@
 <%@page import="calendar.calDAO"%>
 <%@page import="calendar.calInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>    
+<%
+		if (session.getAttribute("userInfoId") == null) {
+	        response.sendRedirect("login.jsp");
+	    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +15,8 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 <title>Insert title here</title>
 </head>
-<jsp:include page="header.jsp"/>
-
 <body class="container">
+<jsp:include page="header.jsp"/>
     <div class="jumbotron">
         <h1>메인페이지</h1>
         <p><%=info.calDate(0) %> 일정입니다.</p>
@@ -22,8 +26,7 @@
 	calInfo info = new calInfo();	
 	calDAO indexDao = new calDAO();
 %>
-	
-	
+
 	<form action="indexAction.jsp">
 		<table class="table table-striped">
 			<tr>

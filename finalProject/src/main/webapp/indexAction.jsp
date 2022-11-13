@@ -3,6 +3,11 @@
 <%@page import="calendar.calInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	if (session.getAttribute("userInfoId") == null) {
+		response.sendRedirect("login.jsp");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +70,6 @@
 				<button type="button" onclick="location.href='update.jsp'" class="btn btn-primary">수정</button>
 				<button type="button" onclick="location.href='delete.jsp'" class="btn btn-primary">삭제</button>
 	</form>
-	<jsp:include page="footer.jsp"/>
 </body>
+	<jsp:include page="footer.jsp"/>
 </html>
