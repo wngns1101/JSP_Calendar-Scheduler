@@ -6,6 +6,10 @@
     pageEncoding="UTF-8"%>    
 <%
 
+if (session.getAttribute("userInfoId") == null) {
+    response.sendRedirect("login.jsp");
+}
+
 Calendar cal = Calendar.getInstance();
 
 int yy = cal.get(Calendar.YEAR);
@@ -34,7 +38,9 @@ int lastday = calInfo.lastDay(yy, mm);
 <body class="container">
 <jsp:include page="header.jsp"/>
     <div class="jumbotron">
-        <h1>메인페이지</h1>
+        <h1>공동 일정 스케쥴러</h1>
+       	<%=yy%>년 <%=mm%>월 일정입니다<br>
+       	일정을 입력해주세요!
     </div>
     
 <%!
@@ -52,7 +58,18 @@ for(int i=1; i<w; i++){
 }
 	for(int i=1; i<=lastday; i++){
 		w = calInfo.weekDay(yy, mm, i);
-		out.println("<td>"+i+"<br>"+indexDao.+"</td>");
+		String str;
+		if(i < 10){
+			str = Integer.toString(yy) + "-" + Integer.toString(mm) +"-0"+ Integer.toString(i);	
+		}else{
+			str = Integer.toString(yy) + "-" + Integer.toString(mm) +"-"+ Integer.toString(i);
+		}
+		ArrayList<String> list = new ArrayList<String>(indexDao.calDate(mm, str));
+		out.println("<td>"+i+"<br>");
+		for(int j=0; j<list.size(); j++){
+			out.println(list.get(j)+"<br>");
+		}
+		out.println("</td>");
 		if(w == 7){
 			out.println("</tr>");
 			if(i < lastday){
