@@ -1,12 +1,28 @@
+<%@page import="java.util.Calendar"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="calendar.calDAO"%>
 <%@page import="calendar.calInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
 <%
-		if (session.getAttribute("userInfoId") == null) {
-	        response.sendRedirect("login.jsp");
-	    }
+
+Calendar cal = Calendar.getInstance();
+
+int yy = cal.get(Calendar.YEAR);
+int mm = cal.get(Calendar.MONTH) + 1;
+
+if(mm == 13){
+	mm = 1;
+	yy++;
+}
+
+if(mm == 0){
+	mm = 12;
+	yy--;
+}
+
+int w = calInfo.weekDay(yy, mm, 1);
+int lastday = calInfo.lastDay(yy, mm);
 %>
 <!DOCTYPE html>
 <html>
@@ -19,56 +35,43 @@
 <jsp:include page="header.jsp"/>
     <div class="jumbotron">
         <h1>메인페이지</h1>
-        <p><%=info.calDate(0) %> 일정입니다.</p>
     </div>
     
 <%!
-	calInfo info = new calInfo();	
 	calDAO indexDao = new calDAO();
 %>
 
-	<form action="indexAction.jsp">
 		<table class="table table-striped">
 			<tr>
-			<td> <input type="radio" name="date" value="<%=info.calDate(0)%>"><%=info.calDate(0)%></td>
-			<td> <input type="radio" name="date" value="<%=info.calDate(1)%>"><%=info.calDate(1)%></td>
-			<td> <input type="radio" name="date" value="<%=info.calDate(2)%>"><%=info.calDate(2)%></td>
-			<td> <input type="radio" name="date" value="<%=info.calDate(3)%>"><%=info.calDate(3)%></td>
-			<td> <input type="radio" name="date" value="<%=info.calDate(4)%>"><%=info.calDate(4)%></td>
-			<td> <input type="radio" name="date" value="<%=info.calDate(5)%>"><%=info.calDate(5)%></td>
-			<td> <input type="radio" name="date" value="<%=info.calDate(6)%>"><%=info.calDate(6)%></td>			
-			<td> <input type="submit" value="확인" class="btn btn-primary"/></td>
-		</tr>
-		
-		<tr>
-			
-			<%
-				ArrayList<String> list2 = new ArrayList<String>(indexDao.calDate(info.calDate(0)));
-				int size = 0;
-				for(int i=0; i<list2.size(); i++){
-				if(size == 6){
-			%>
-			</tr>
-			<tr>
-			<%
-				size = 0;
-				}
-			%>
-			<td>
-			
-				<%=list2.get(i)%>
-				
-			</td>
-			<%
-				size++;
-				}
-			%>
-		</tr>
+		<th>일</th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th><th>토</th>
+	</tr>
+	<tr>
+<%
+for(int i=1; i<w; i++){
+	out.println("<td></td>");
+}
+	for(int i=1; i<=lastday; i++){
+		w = calInfo.weekDay(yy, mm, i);
+		out.println("<td>"+i+"<br>"+indexDao.+"</td>");
+		if(w == 7){
+			out.println("</tr>");
+			if(i < lastday){
+				out.println("<tr>");
+			}
+		}
+	}
+	if(w != 7){
+		for(int i=w; i<7; i++){
+			out.println("<td>&nbsp;</td>");
+		}	
+		out.println("</tr>");
+	}
+%>
 		</table>
 			<button type="button" onclick="location.href='insert.jsp'" class="btn btn-primary">추가</button>
 			<button type="button" onclick="location.href='update.jsp'" class="btn btn-primary">수정</button>
 			<button type="button" onclick="location.href='delete.jsp'" class="btn btn-primary">삭제</button>
-	</form>
+	
 	<jsp:include page="footer.jsp"/>
 </body>
 </html>

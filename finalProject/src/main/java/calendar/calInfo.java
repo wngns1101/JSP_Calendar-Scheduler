@@ -4,27 +4,26 @@ import java.util.*;
 
 public class calInfo {
 	
+	public static boolean isLeepYear(int yy) {
+		return (yy%400==0 || yy%4==0 && yy % 100 != 0);
+	}
 	
-	public String calDate(int x){
-		Calendar cal = Calendar.getInstance();
-		
+	public static int lastDay(int yy, int mm) {
 		int[] lastDay = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-		
-		int y = cal.get(Calendar.YEAR);
-		int m = cal.get(Calendar.MONTH) + 1;
-		int d = cal.get(Calendar.DATE) + x;
-		
-		if(m == 13){
-			y++;
-			m = 1;
+		lastDay[1] = isLeepYear(yy)? 29:28;
+		return lastDay[mm-1];
+	}
+	
+	public static int totalDay(int yy, int mm, int dd) {
+		int total = (yy-1)*365 + (yy-1)/4 - (yy-1)/100 + (yy-1)/400;
+		for(int i=1; i<mm; i++) {
+			total += lastDay(yy, i);
 		}
-		
-		if(d > lastDay[m-1]){
-			m++;
-			d = d - lastDay[m-1];
-		}
-		
-		return y + "-" + m + "-" +d;
-		
+		total += dd;
+		return total;
+	}
+	
+	public static int weekDay(int yy, int mm, int dd) {
+		return totalDay(yy, mm, dd) % 7 + 1;
 	}
 }
