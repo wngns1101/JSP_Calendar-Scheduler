@@ -25,10 +25,8 @@ public class calDAO {
 	}
 	
 	public ArrayList<String> calDate(int mm, String date) throws SQLException {
-		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		String month = months[mm-1];
+		String month = calInfo.currentMonth(mm);
 		String a = "\""+date+"\"";
-		//		여기부터 다시
 		ArrayList<String> str = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement("select calTitle from "+month+" where calStartDate <= "+ a + "and calEndDate >="+ a + ";");
@@ -42,8 +40,9 @@ public class calDAO {
 		return str;
 	}
 	
-	public int calInsert(calDTO cal) throws SQLException {
-		String sql = "insert into calendar values(?, ?, ?, ?, ?, ?)";
+	public int calInsert(calDTO cal, int mm) throws SQLException {
+		String month = calInfo.currentMonth(mm);
+		String sql = "insert into " + month + " values(?, ?, ?, ?, ?, ?)";
 		pstmt = conn.prepareStatement(sql);
 		try {
 			pstmt.setString(1, cal.getCalId());
@@ -61,8 +60,9 @@ public class calDAO {
 		return -1;
 	}
 	
-	public int calDelete(String id, String title) throws SQLException {
-		String sql = "delete from calendar where calId = ? and calTitle = ? ";
+	public int calDelete(String id, String title, int mm) throws SQLException {
+		String month = calInfo.currentMonth(mm);
+		String sql = "delete from " + month + " where calId = ? and calTitle = ? ";
 		pstmt = conn.prepareStatement(sql);
 		try {
 			pstmt.setString(1, id);
@@ -76,16 +76,17 @@ public class calDAO {
 		return -1;
 	}
 	
-	public int calUpdate(calDTO cal) throws SQLException {
-		String sql = "update calendar set calName = ?, calStartDate = ?, calEndDate = ?, calText = ? where calId = ? and calTitle = ?";
+	public int calUpdate(calDTO cal, int mm) throws SQLException {
+		String month = calInfo.currentMonth(mm);
+		String sql = "update "+ month + " set calTitle = ?, calStartDate = ?, calEndDate = ?, calText = ? where calId = ? and calTitle = ?";
 		pstmt = conn.prepareStatement(sql);
 		try {
-			pstmt.setString(1, cal.getCalName());
+			pstmt.setString(1, cal.getCalTitle());
 			pstmt.setString(2, cal.getCalStartDate());
 			pstmt.setString(3, cal.getCalEndDate());
 			pstmt.setString(4, cal.getCalText());
 			pstmt.setString(5, cal.getCalId());
-			pstmt.setString(6, cal.getCalTitle());
+			pstmt.setString(6, cal.getCalOldTitle());
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

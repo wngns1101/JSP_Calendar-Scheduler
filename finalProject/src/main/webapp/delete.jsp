@@ -19,7 +19,9 @@
     </div>
 	<form action="deleteAction.jsp">
 			<label>삭제할 제목 </label><br>
-			<input type="text" name="calTitle">
+			<input type="text" name="calTitle"><br>
+			<label>삭제 날짜</label><br>
+		<input type="date" name="calDeleteDate"><br>
 			<input type="submit" value="삭제" class="btn btn-primary">
 	</form>
 </body>

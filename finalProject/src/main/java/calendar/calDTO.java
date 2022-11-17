@@ -1,5 +1,6 @@
 package calendar;
 public class calDTO {
+	private String calOldTitle;
 	private String calId;
 	private String calName;
 	private String calTitle;
@@ -7,6 +8,12 @@ public class calDTO {
 	private String calEndDate;
 	private String calText;
 	
+	public String getCalOldTitle() {
+		return calOldTitle;
+	}
+	public void setCalOldTitle(String calOldTitle) {
+		this.calOldTitle = calOldTitle;
+	}
 	public String getCalId() {
 		return calId;
 	}

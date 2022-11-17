@@ -10,6 +10,10 @@
 <body>
 	<%
 		calDAO dao = new calDAO();
+	
+		String str[] = request.getParameter("calDeleteDate").split("-");
+		int mm = Integer.parseInt(str[1]);
+	
 		String title = request.getParameter("calTitle");
 		String id = (String)session.getAttribute("userInfoId");
 	
@@ -19,7 +23,7 @@
 			out.println("history.back()");
 			out.println("</script>");
 		}else{
-			int result = dao.calDelete(id, title);	
+			int result = dao.calDelete(id, title, mm);	
 			if(result == -1){
 				out.println("<script>");
 				out.println("alert('삭제에 실패했습니다.')");

@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -15,17 +16,17 @@
 </head>
 <body class="container">
 	<div class="jumbotron">
-		<h1>삭제</h1>
-		<p>삭제 화면입니다.</p>
+		<h1>수정</h1>
+		<p>수정 화면입니다.</p>
 	</div>
 	<form action="updateAction.jsp">
-		<label>이름</label><br>
-		<input type="text" name="calName"><br>
+		<label>수정할 일정</label><br>
+		<input type="text" name="calOldTitle"><br>
 		<label>제목</label><br>
 		<input type="text" name="calTitle"><br>
-		<label>시작날짜</label><br>
+		<label>시작 날짜</label><br>
 		<input type="date" name="calStartDate"><br>
-		<label>끝나는날짜</label><br>
+		<label>끝나는 날짜</label><br>
 		<input type="date" name="calEndDate"><br>
 		<label>내용</label><br>
 		<textarea name="calText"></textarea>

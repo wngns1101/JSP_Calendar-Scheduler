@@ -26,4 +26,10 @@ public class calInfo {
 	public static int weekDay(int yy, int mm, int dd) {
 		return totalDay(yy, mm, dd) % 7 + 1;
 	}
+	
+	public static String currentMonth(int mm) {
+		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		String month = months[mm-1];
+		return month;
+	}
 }

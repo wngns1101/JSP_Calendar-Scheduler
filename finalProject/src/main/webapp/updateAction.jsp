@@ -1,3 +1,4 @@
+<%@page import="java.util.Calendar"%>
 <%@page import="calendar.calDAO"%>
 <%@page import="calendar.calDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,8 +13,12 @@
 <%
  	calDTO dto = new calDTO();
 	calDAO dao = new calDAO();
+	
+	String str[] = request.getParameter("calStartDate").split("-");
+	int mm = Integer.parseInt(str[1]);
+	
+	dto.setCalOldTitle(request.getParameter("calOldTitle"));
 	dto.setCalId((String)session.getAttribute("userInfoId"));
- 	dto.setCalName(request.getParameter("calName"));
  	dto.setCalTitle(request.getParameter("calTitle"));
  	dto.setCalStartDate(request.getParameter("calStartDate"));
  	dto.setCalEndDate(request.getParameter("calEndDate"));
@@ -21,13 +26,13 @@
 %>
 
 <% 	
- 	if(dto.getCalId() == null || dto.getCalName() == null|| dto.getCalTitle() == null || dto.getCalStartDate() == null || dto.getCalEndDate() == null || dto.getCalText() == null){
+ 	if(dto.getCalOldTitle() == null ||dto.getCalId() == null || dto.getCalTitle() == null || dto.getCalStartDate() == null || dto.getCalEndDate() == null || dto.getCalText() == null){
 		out.println("<script>");
 		out.println("alert('비워진 항목이 있습니다.')");
 		out.println("history.back()");
 		out.println("</script>");
 	}else{
-		int result = dao.calUpdate(dto);	
+		int result = dao.calUpdate(dto, mm);	
 		if(result == -1){
 			out.println("<script>");
 			out.println("alert('등록에 실패했습니다.')");
