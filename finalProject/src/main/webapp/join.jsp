@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,12 +9,27 @@
 <title>Insert title here</title>
 </head>
 <body class="container">
+	<c:if test="${joinResult == 2}">
+		<script>
+			alert('아이디가 중복입니다. 다시 입력해주세요');
+		</script>
+	</c:if>
+	<c:if test="${joinResult == 0}">
+		<script>
+			alert('빈 항목이 있습니다. 다시 입력해주세요');
+		</script>
+	</c:if>
+    <c:if test="${joinResult == 1}">
+		<script>
+			alert('이미 존재하는 아이디입니다. 다시 입력해주세요');
+		</script>
+	</c:if>
     <div class="jumbotron">
         <h1>회원가입</h1>
         <p>회원가입 화면입니다.</p>
     </div>
     
-	<form action="joinAction.jsp" method="post">
+	<form action="join.do" method="post">
 		<div class="form-group">
 			<label>아이디</label><br>
 			<input type="text" name="joinId">

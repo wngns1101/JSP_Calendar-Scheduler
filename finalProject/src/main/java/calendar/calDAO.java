@@ -24,7 +24,59 @@ public class calDAO {
 		}
 	}
 	
-	public ArrayList<String> calDate(int mm, String date) throws SQLException {
+	
+	public String[][] calMyDate(String id) throws SQLException {
+		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		String[][] totals = {};
+		try {
+			pstmt = conn.prepareStatement("select * from ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? where calId = ?");
+			pstmt.setString(1, months[0]);
+			pstmt.setString(2, months[1]);
+			pstmt.setString(3, months[2]);
+			pstmt.setString(4, months[3]);
+			pstmt.setString(5, months[4]);
+			pstmt.setString(6, months[5]);
+			pstmt.setString(7, months[6]);
+			pstmt.setString(8, months[7]);
+			pstmt.setString(9, months[8]);
+			pstmt.setString(10, months[9]);
+			pstmt.setString(11, months[10]);
+			pstmt.setString(12, months[11]);
+			pstmt.setString(13, id);
+			rs = pstmt.executeQuery();
+			int i = 0;
+			while(rs.next()) {
+				totals[i][0] = rs.getString("calId");
+				totals[i][1] = rs.getString("calName");
+				totals[i][2] = rs.getString("calTitle");
+				totals[i][3] = rs.getString("calStartDate");
+				totals[i][4] = rs.getString("calEndDate");
+				totals[i][5] = rs.getString("calText");
+				i++;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return totals;
+	}
+	
+	public ArrayList<String> calNameDate(int mm, String date) throws SQLException {
+		String month = calInfo.currentMonth(mm);
+		String a = "\""+date+"\"";
+		ArrayList<String> str = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement("select calName from "+month+" where calStartDate <= "+ a + "and calEndDate >="+ a + ";");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				str.add(rs.getString("calName"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
+	
+	public ArrayList<String> calTitleDate(int mm, String date) throws SQLException {
 		String month = calInfo.currentMonth(mm);
 		String a = "\""+date+"\"";
 		ArrayList<String> str = new ArrayList<>();

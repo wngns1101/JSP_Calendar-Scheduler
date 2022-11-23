@@ -4,6 +4,7 @@
 <%@page import="calendar.calInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 
 if (session.getAttribute("userInfoId") == null) {
@@ -36,6 +37,16 @@ int lastday = calInfo.lastDay(yy, mm);
 <title>Insert title here</title>
 </head>
 <body class="container">
+<c:if test="${joinResult == 2}">
+		<script>
+			alert('일정 수정에 성공했습니다.');
+		</script>
+</c:if>
+<c:if test="${insertResult == 2}">
+		<script>
+			alert('일정 추가에 성공했습니다.');
+		</script>
+</c:if>
 <jsp:include page="header.jsp"/>
     <div class="jumbotron">
         <h1>공동 일정 스케쥴러</h1>
@@ -64,10 +75,12 @@ for(int i=1; i<w; i++){
 		}else{
 			str = Integer.toString(yy) + "-" + Integer.toString(mm) +"-"+ Integer.toString(i);
 		}
-		ArrayList<String> list = new ArrayList<String>(indexDao.calDate(mm, str));
+		ArrayList<String> listName = new ArrayList<String>(indexDao.calNameDate(mm, str));
+		ArrayList<String> listTitle = new ArrayList<String>(indexDao.calTitleDate(mm, str));
 		out.println("<td>"+i+"<br>");
-		for(int j=0; j<list.size(); j++){
-			out.println(list.get(j)+"<br>");
+		for(int j=0; j<listTitle.size(); j++){
+			out.println(listName.get(j) + ":");
+			out.println(listTitle.get(j)+"<br>");
 		}
 		out.println("</td>");
 		if(w == 7){

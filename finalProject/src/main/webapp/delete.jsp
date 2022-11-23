@@ -14,8 +14,8 @@
 </head>
 <body class="container">
     <div class="jumbotron">
-        <h1>삭제</h1>
-        <p>삭제 화면입니다.</p>
+        <h1>일정 삭제</h1>
+        <p>일정 삭제 화면입니다.</p>
     </div>
 	<form action="deleteAction.jsp">
 			<label>삭제할 제목 </label><br>

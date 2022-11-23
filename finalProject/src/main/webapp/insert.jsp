@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	if (session.getAttribute("userInfoId") == null) {
 		response.sendRedirect("login.jsp");
@@ -13,11 +14,21 @@
 <title>Insert title here</title>
 </head>
 <body class="container">
+	<c:if test="${insertResult == 0}">
+		<script>
+			alert('비워진 항목이 있습니다. 다시 등록해주세요');
+		</script>
+	</c:if>
+    <c:if test="${insertResult == 1}">
+		<script>
+			alert('등록에 실패했습니다. 다시 등록해주세요');
+		</script>
+	</c:if>
     <div class="jumbotron">
         <h1>일정 추가</h1>
         <p>일정 추가 화면입니다.</p>
     </div>
-	<form action="insertAction.jsp">
+	<form action="insert.do" method="post">
 			<label>이름</label><br>
 			 <input type="text" name="calName"><br>
 			<label>제목</label><br>

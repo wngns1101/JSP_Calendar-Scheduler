@@ -55,4 +55,22 @@ public class userDAO {
 		}
 		return -1;
 	}
+	
+	public int joinCheck(String userID) throws SQLException {
+		String sql = "select * from user where userID = ?";
+		pstmt = conn.prepareStatement(sql);
+		try {
+			ResultSet rs = null;
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }

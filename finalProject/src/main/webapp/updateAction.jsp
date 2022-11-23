@@ -23,9 +23,7 @@
  	dto.setCalStartDate(request.getParameter("calStartDate"));
  	dto.setCalEndDate(request.getParameter("calEndDate"));
  	dto.setCalText(request.getParameter("calText"));
-%>
 
-<% 	
  	if(dto.getCalOldTitle() == null ||dto.getCalId() == null || dto.getCalTitle() == null || dto.getCalStartDate() == null || dto.getCalEndDate() == null || dto.getCalText() == null){
 		out.println("<script>");
 		out.println("alert('비워진 항목이 있습니다.')");
