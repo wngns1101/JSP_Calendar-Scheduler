@@ -35,7 +35,7 @@ public class updateController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/signUp.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/update.jsp");
 		rd.forward(request, response);
 	}
 
@@ -49,9 +49,6 @@ public class updateController extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		calDTO dto = new calDTO();
 		calDAO dao = new calDAO();
-
-		String str[] = request.getParameter("calStartDate").split("-");
-		int mm = Integer.parseInt(str[1]);
 		
 		dto.setCalOldTitle(request.getParameter("calOldTitle"));
 		HttpSession session = request.getSession();
@@ -61,13 +58,16 @@ public class updateController extends HttpServlet {
 		dto.setCalEndDate(request.getParameter("calEndDate"));
 		dto.setCalText(request.getParameter("calText"));
 
-		if (dto.getCalOldTitle() == null || dto.getCalId() == null || dto.getCalTitle() == null
-				|| dto.getCalStartDate() == null || dto.getCalEndDate() == null || dto.getCalText() == null) {
+		if (dto.getCalOldTitle() == "" || dto.getCalId() == "" || dto.getCalTitle() == ""
+				|| dto.getCalStartDate() == "" || dto.getCalEndDate() == "" || dto.getCalText() == "") {
 			request.setAttribute("updateResult", 0);
 			RequestDispatcher rd = request.getRequestDispatcher("/update.jsp");
 			rd.forward(request, response);
 		}
-
+		
+		String str[] = request.getParameter("calStartDate").split("-");
+		int mm = Integer.parseInt(str[1]);
+		
 		int result = 0;
 		try {
 			result = dao.calUpdate(dto, mm);

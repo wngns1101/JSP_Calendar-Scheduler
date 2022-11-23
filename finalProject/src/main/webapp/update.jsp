@@ -16,12 +16,12 @@
 <title>Insert title here</title>
 </head>
 <body class="container">
-	<c:if test="${joinResult == 0}">
+	<c:if test="${updateResult == 0}">
 		<script>
 			alert('비워진 항목이 있습니다. 다시 등록해주세요');
 		</script>
 	</c:if>
-    <c:if test="${joinResult == 1}">
+    <c:if test="${updateResult == 1}">
 		<script>
 			alert('등록에 실패했습니다. 다시 등록해주세요');
 		</script>

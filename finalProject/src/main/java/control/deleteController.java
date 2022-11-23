@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +32,7 @@ public class deleteController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/signUp.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("delete.jsp");
 		rd.forward(request, response);
 	}
 
@@ -42,36 +43,37 @@ public class deleteController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		calDAO dao = new calDAO();
-		
-		String str[] = request.getParameter("calDeleteDate").split("-");
-		int mm = Integer.parseInt(str[1]);
 	
 		String title = request.getParameter("calTitle");
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("userInfoId");
-	
+
 		if(title == null){
-			out.println("<script>");
-			out.println("alert('제목을 입력하지 않으셨습니다.')");
-			out.println("history.back()");
-			out.println("</script>");
+			request.setAttribute("deleteResult", 0);
+			RequestDispatcher rd = request.getRequestDispatcher("/delete.jsp");
+			rd.forward(request, response);
 		}else{
-			int result = dao.calDelete(id, title, mm);	
+			String str[] = request.getParameter("calDeleteDate").split("-");
+			int mm = Integer.parseInt(str[1]);
+			int result = 0;
+			try {
+				result = dao.calDelete(id, title, mm);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 			if(result == -1){
-				out.println("<script>");
-				out.println("alert('삭제에 실패했습니다.')");
-				out.println("history.back()");
-				out.println("</script>");
+				request.setAttribute("deleteResult", 1);
+				RequestDispatcher rd = request.getRequestDispatcher("/delete.jsp");
+				rd.forward(request, response);
 			}else if(result == 0){
-				out.println("<script>");
-				out.println("alert('삭제할 일정이 없습니다.')");
-				out.println("location.href='index.jsp'");
-				out.println("</script>");
+				request.setAttribute("deleteResult", 2);
+				RequestDispatcher rd = request.getRequestDispatcher("/delete.jsp");
+				rd.forward(request, response);
 			}else{
-				out.println("<script>");
-				out.println("alert('삭제에 성공했습니다.')");
-				out.println("location.href='index.jsp'");
-				out.println("</script>");
+				request.setAttribute("deleteResult", 3);
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);
 			}
 		}
 	}

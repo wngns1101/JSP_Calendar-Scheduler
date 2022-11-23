@@ -24,6 +24,26 @@ public class calDAO {
 		}
 	}
 	
+	public ArrayList<String> dayScaduler(String date, int mm) throws SQLException {
+		String month = calInfo.currentMonth(mm);
+		String a = "\""+date+"\""; 
+		ArrayList<String> str = new ArrayList<>();
+		try {
+			pstmt = conn.prepareStatement("select * from "+month+" where calStartDate <= "+ a + "and calEndDate >="+ a + ";");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				str.add(rs.getString("calId"));
+				str.add(rs.getString("calName"));
+				str.add(rs.getString("calTitle"));
+				str.add(rs.getString("calStartDate"));
+				str.add(rs.getString("calEndDate"));
+				str.add(rs.getString("calText"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return str;
+	}
 	
 	public String[][] calMyDate(String id) throws SQLException {
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};

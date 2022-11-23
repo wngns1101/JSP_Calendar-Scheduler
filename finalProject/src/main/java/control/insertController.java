@@ -33,7 +33,7 @@ public class insertController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/signUp.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/insert.jsp");
 		rd.forward(request, response);
 	}
 
@@ -46,27 +46,24 @@ public class insertController extends HttpServlet {
 	 	calDTO dto = new calDTO();
 		calDAO dao = new calDAO();
 		
-		String str[] = request.getParameter("calStartDate").split("-");
-		int mm = Integer.parseInt(str[1]); 
 		HttpSession session = request.getSession();
-		String calName = request.getParameter("calName");
-		String userInfoId = (String)session.getAttribute("userInfoId");
-		String calTitle = request.getParameter("calTitle");
-		String calStartDate = request.getParameter("calStartDate");
-		String calEndDate = request.getParameter("calEndDate");
-		String calText = request.getParameter("calText");
+		dto.setCalName(request.getParameter("calName"));
+		dto.setCalId((String)session.getAttribute("userInfoId"));
+	 	dto.setCalTitle(request.getParameter("calTitle"));
+	 	dto.setCalStartDate(request.getParameter("calStartDate"));
+	 	dto.setCalEndDate(request.getParameter("calEndDate"));
+	 	dto.setCalText(request.getParameter("calText"));
+		
 
-	 	if(calName.equals(null) ||userInfoId == null ||calTitle  == null || calStartDate == null || calEndDate == null ||calText == null){
-	 		request.setAttribute("joinResult", 0);
+	 	if(dto.getCalName() == "" || dto.getCalId() == "" || dto.getCalTitle()  == "" || dto.getCalStartDate() == "" || dto.getCalEndDate() == "" || dto.getCalText() == ""){
+	 		request.setAttribute("insertResult", 0);
 			RequestDispatcher rd = request.getRequestDispatcher("/insert.jsp");
 			rd.forward(request, response);		
-		}else{
-			dto.setCalName(calName);
-			dto.setCalId(userInfoId);
-		 	dto.setCalTitle(calTitle);
-		 	dto.setCalStartDate(calStartDate);
-		 	dto.setCalEndDate(calEndDate);
-		 	dto.setCalText(calText);
+		}
+	 	
+			String str[] = dto.getCalStartDate().split("-");
+			int mm = Integer.parseInt(str[1]);
+			
 			int result = 0;
 			try {
 				result = dao.calInsert(dto, mm);
@@ -75,14 +72,14 @@ public class insertController extends HttpServlet {
 				e.printStackTrace();
 			}	
 			if(result == -1){
-				request.setAttribute("joinResult", 1);
+				request.setAttribute("insertResult", 1);
 				RequestDispatcher rd = request.getRequestDispatcher("/insert.jsp");
 				rd.forward(request, response);
 			}else{
-				request.setAttribute("joinResult", 2);
+				request.setAttribute("insertResult", 2);
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);
-			}
+		
 		}
 	}
 

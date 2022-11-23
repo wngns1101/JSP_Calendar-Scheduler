@@ -47,6 +47,11 @@ int lastday = calInfo.lastDay(yy, mm);
 			alert('일정 추가에 성공했습니다.');
 		</script>
 </c:if>
+<c:if test="${deleteResult == 3}">
+		<script>
+			alert('일정 삭제에 성공했습니다.');
+		</script>
+</c:if>
 <jsp:include page="header.jsp"/>
     <div class="jumbotron">
         <h1>공동 일정 스케쥴러</h1>
@@ -77,7 +82,12 @@ for(int i=1; i<w; i++){
 		}
 		ArrayList<String> listName = new ArrayList<String>(indexDao.calNameDate(mm, str));
 		ArrayList<String> listTitle = new ArrayList<String>(indexDao.calTitleDate(mm, str));
-		out.println("<td>"+i+"<br>");
+		out.println("<td>");
+		String date = Integer.toString(yy) + "-" + Integer.toString(mm) + "-" + i; 
+%>
+		<a href="dayScaduler.jsp?date=<%=str%>"><%=i%></a>
+<%	
+		out.println("<br>");
 		for(int j=0; j<listTitle.size(); j++){
 			out.println(listName.get(j) + ":");
 			out.println(listTitle.get(j)+"<br>");

@@ -35,4 +35,13 @@
 		<servlet-name>insert</servlet-name>
 		<url-pattern>/insert.do</url-pattern>
 </servlet-mapping>
+
+<servlet>
+		<servlet-name>delete</servlet-name>
+		<servlet-class>control.deleteController</servlet-class>
+</servlet>
+<servlet-mapping>
+		<servlet-name>delete</servlet-name>
+		<url-pattern>/delete.do</url-pattern>
+</servlet-mapping>
 </web-app>
