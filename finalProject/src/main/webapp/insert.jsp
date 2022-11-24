@@ -11,9 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<title>Insert title here</title>
+<title>추가</title>
 </head>
 <body class="container">
+<jsp:include page="header.jsp"/>
 	<c:if test="${insertResult == 0}">
 		<script>
 			alert('비워진 항목이 있습니다. 다시 등록해주세요');
@@ -41,5 +42,6 @@
 			 <textarea name="calText"></textarea><br>
 			<input type="submit" value="추가" class="btn btn-primary">
 	</form>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

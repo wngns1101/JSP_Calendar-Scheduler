@@ -11,9 +11,10 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<title>Insert title here</title>
+<title>삭제</title>
 </head>
 <body class="container">
+<jsp:include page="header.jsp"/>
     <c:if test="${deleteResult == 0}">
 		<script>
 			alert('제목이 입력되지 않았습니다. 다시 입력해주세요');
@@ -40,5 +41,6 @@
 		<input type="date" name="calDeleteDate"><br>
 			<input type="submit" value="삭제" class="btn btn-primary">
 	</form>
+	<jsp:include page="footer.jsp"/>
 </body>
 </html>

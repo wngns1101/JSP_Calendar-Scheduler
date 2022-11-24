@@ -24,7 +24,7 @@ if(mm == 13){
 if(mm == 0){
 	mm = 12;
 	yy--;
-}
+} 
 
 int w = calInfo.weekDay(yy, mm, 1);
 int lastday = calInfo.lastDay(yy, mm);
@@ -34,7 +34,7 @@ int lastday = calInfo.lastDay(yy, mm);
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-<title>Insert title here</title>
+<title>메인화면</title>
 </head>
 <body class="container">
 <c:if test="${joinResult == 2}">
@@ -85,7 +85,7 @@ for(int i=1; i<w; i++){
 		out.println("<td>");
 		String date = Integer.toString(yy) + "-" + Integer.toString(mm) + "-" + i; 
 %>
-		<a href="dayScaduler.jsp?date=<%=str%>"><%=i%></a>
+		<a href="dayScheduler.jsp?date=<%=str%>"><%=i%></a>
 <%	
 		out.println("<br>");
 		for(int j=0; j<listTitle.size(); j++){

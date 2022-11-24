@@ -2,6 +2,7 @@
 <%@page import="calendar.calDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	if (session.getAttribute("userInfoId") == null) {
 		response.sendRedirect("login.jsp");
@@ -12,34 +13,28 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body class="container">
+<jsp:include page="header.jsp"/>
     <div class="jumbotron">
         <h1>마이페이지</h1>
         <p>내 일정입니다.</p>
     </div>
-    <table>
+    <table class="table table-striped">
+	<tr>
 <%
-	String totalScadular[][];
-	totalScadular = dao.calMyDate((String)session.getAttribute("userInfoId"));
+	ArrayList<String> data =(ArrayList<String>) request.getAttribute("data");
 	
-	for(int i=0; i<totalScadular.length; i++){
-		out.println("<tr><td>");
-		out.println(totalScadular[i][0] +"</td>");
-		out.println("<td>");
-		out.println(totalScadular[i][1] +"</td>");
-		out.println("<td>");
-		out.println(totalScadular[i][2] +"</td>");
-		out.println("<td>");
-		out.println(totalScadular[i][3] +"</td>");
-		out.println("<td>");
-		out.println(totalScadular[i][4] +"</td>");
-		out.println("<td>");
-		out.println(totalScadular[i][5] +"</td>");
-		out.println("</tr>");
+	for(int i=0; i<data.size(); i++){
+		if(i % 6 == 0){
+			out.println("</tr><tr>");
+		}
+		out.println("<td>"+data.get(i)+"</td>");
 	}
 %>
-    </table>
+</table>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

@@ -24,7 +24,7 @@ public class calDAO {
 		}
 	}
 	
-	public ArrayList<String> dayScaduler(String date, int mm) throws SQLException {
+	public ArrayList<String> dayScheduler(String date, int mm) throws SQLException {
 		String month = calInfo.currentMonth(mm);
 		String a = "\""+date+"\""; 
 		ArrayList<String> str = new ArrayList<>();
@@ -45,39 +45,29 @@ public class calDAO {
 		return str;
 	}
 	
-	public String[][] calMyDate(String id) throws SQLException {
-		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		String[][] totals = {};
+	public ArrayList<String> calMyDate(String id) throws SQLException {
+		ArrayList<String> str = new ArrayList<>();
+		String a = "\""+id+"\"";
 		try {
-			pstmt = conn.prepareStatement("select * from ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? where calId = ?");
-			pstmt.setString(1, months[0]);
-			pstmt.setString(2, months[1]);
-			pstmt.setString(3, months[2]);
-			pstmt.setString(4, months[3]);
-			pstmt.setString(5, months[4]);
-			pstmt.setString(6, months[5]);
-			pstmt.setString(7, months[6]);
-			pstmt.setString(8, months[7]);
-			pstmt.setString(9, months[8]);
-			pstmt.setString(10, months[9]);
-			pstmt.setString(11, months[10]);
-			pstmt.setString(12, months[11]);
-			pstmt.setString(13, id);
+			pstmt = conn.prepareStatement("select * from "+calInfo.currentMonth(1)+" where calId = "+a+" union select * from "+calInfo.currentMonth(2)+" where calId = "+a+" union select * from "+calInfo.currentMonth(3)+" where calId = "+a+""
+					+ "union select * from "+calInfo.currentMonth(4)+" where calId = "+a+" union select * from "+calInfo.currentMonth(5)+" where calId = "+a+" union select * from "+calInfo.currentMonth(6)+" where calId = "+a+" "
+					+ "union select * from "+calInfo.currentMonth(7)+" where calId = "+a+" union select * from "+calInfo.currentMonth(8)+" where calId = "+a+" union select * from "+calInfo.currentMonth(9)+" where calId = "+a+" "
+					+ "union select * from "+calInfo.currentMonth(10)+" where calId = "+a+" union select * from "+calInfo.currentMonth(11)+" where calId = "+a+" union select * from "+calInfo.currentMonth(12)+" where calId = "+a+";");
 			rs = pstmt.executeQuery();
 			int i = 0;
 			while(rs.next()) {
-				totals[i][0] = rs.getString("calId");
-				totals[i][1] = rs.getString("calName");
-				totals[i][2] = rs.getString("calTitle");
-				totals[i][3] = rs.getString("calStartDate");
-				totals[i][4] = rs.getString("calEndDate");
-				totals[i][5] = rs.getString("calText");
+				str.add(rs.getString("calId"));
+				str.add(rs.getString("calName"));
+				str.add(rs.getString("calTitle"));
+				str.add(rs.getString("calStartDate"));
+				str.add(rs.getString("calEndDate"));
+				str.add(rs.getString("calText"));
 				i++;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return totals;
+		return str;
 	}
 	
 	public ArrayList<String> calNameDate(int mm, String date) throws SQLException {
