@@ -37,7 +37,17 @@ int lastday = calInfo.lastDay(yy, mm);
 <title>메인화면</title>
 </head>
 <body class="container">
-<c:if test="${joinResult == 2}">
+<c:if test="${loginResult == 3}">
+		<script>
+			alert('로그인에 성공했습니다.');
+		</script>
+</c:if>
+<c:if test="${joinResult == 3}">
+		<script>
+			alert('회원가입에 성공했습니다.');
+		</script>
+</c:if>
+<c:if test="${updateResult == 2}">
 		<script>
 			alert('일정 수정에 성공했습니다.');
 		</script>

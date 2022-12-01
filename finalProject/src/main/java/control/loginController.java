@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import user.Encryption;
 import user.userDAO;
 import user.userDTO;
 
@@ -43,15 +44,22 @@ public class loginController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		userDTO user = new userDTO();
 		userDAO dao = new userDAO();
+		Encryption sha = new Encryption();
+		String shaPw = null;
+		try {
+			shaPw = sha.encrypt(request.getParameter("loginPw"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		String id = request.getParameter("loginId");
-		String pw = request.getParameter("loginPw");
+		
 	
-		int result = dao.login(id, pw);
+		int result = dao.login(id, shaPw);
 		
 		if(result == 1){
 			HttpSession session = request.getSession();
+			request.setAttribute("loginResult", 3);
 			session.setAttribute("userInfoId", id);
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);

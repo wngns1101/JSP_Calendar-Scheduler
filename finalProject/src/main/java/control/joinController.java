@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import user.Encryption;
 import user.userDAO;
 import user.userDTO;
 
@@ -51,9 +52,15 @@ public class joinController extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		userDTO user = new userDTO();
 		userDAO dao = new userDAO();
-
+		Encryption sha = new Encryption();
+		String shaPw = null;
+		try {
+			shaPw = sha.encrypt(request.getParameter("joinPw"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		user.setId(request.getParameter("joinId"));
-		user.setPassword(request.getParameter("joinPw"));
+		user.setPassword(shaPw);
 		user.setName(request.getParameter("joinName"));
 		user.setGender(request.getParameter("joinGender"));
 		user.setEmail(request.getParameter("joinEmail"));
@@ -85,6 +92,7 @@ public class joinController extends HttpServlet {
 			}
 			if (result == 1) {
 				HttpSession session = request.getSession();
+				request.setAttribute("joinResult", 3);
 				session.setAttribute("userInfoId", user.getId());
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);

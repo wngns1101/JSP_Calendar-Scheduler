@@ -48,7 +48,7 @@ public class deleteController extends HttpServlet {
 		HttpSession session = request.getSession();
 		String id = (String)session.getAttribute("userInfoId");
 
-		if(title == null){
+		if(title == null || request.getParameter("calDeleteDate") == ""){
 			request.setAttribute("deleteResult", 0);
 			RequestDispatcher rd = request.getRequestDispatcher("/delete.jsp");
 			rd.forward(request, response);

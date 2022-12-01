@@ -32,9 +32,9 @@
         <p>일정 수정 화면입니다.</p>
 	</div>
 	<form action="update.do" method="post">
-		<label>수정할 일정</label><br>
+		<label>현재 제목</label><br>
 		<input type="text" name="calOldTitle"><br>
-		<label>제목</label><br>
+		<label>수정할 제목</label><br>
 		<input type="text" name="calTitle"><br>
 		<label>시작 날짜</label><br>
 		<input type="date" name="calStartDate"><br>
