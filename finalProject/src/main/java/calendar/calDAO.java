@@ -16,7 +16,7 @@ public class calDAO {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/jspProject?characterEncoding=UTF-8&serverTimezone=UTC&useSSL=false";
 			String dbId = "root";
-			String dbPassword = "Wkrwjs4602!";
+			String dbPassword = "rootpw";
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(dbURL, dbId, dbPassword);
 		} catch (Exception e) {
