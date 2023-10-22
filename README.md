@@ -8,7 +8,7 @@
 
 ## 3. 결과 화면
 1. 로그인 화면<br>
-![스크린샷 2023-10-23 오전 12 32 44](https://github.com/wngns1101/JSP_Calendar-Scheduler/assets/86885227/4b8099e1-723c-4ea2-a5ae-4c448efe8092)<br>
+![스크린샷 2023-10-23 오전 12 32 44](https://github.com/wngns1101/JSP_Calendar-Scheduler/assets/86885227/4b8099e1-723c-4ea2-a5ae-4c448efe8092)<br><br>
 2. 회원가입 화면<br>
 ![스크린샷 2023-10-23 오전 12 32 57](https://github.com/wngns1101/JSP_Calendar-Scheduler/assets/86885227/b157f3f7-2da7-401e-bb95-67798a4d9a47)<br>
 3. 메인 화면<br>
